@@ -3,23 +3,25 @@ const fs = require("fs");
 
 function _mergeArrays(arrA, arrB) {
 	const mergedArr = [];
+	let aIndex = 0;
+	let bIndex = 0;
 
 	while (true) {
-		const aItem = arrA[0];
-		const bItem = arrB[0];
+		const aItem = arrA[aIndex];
+		const bItem = arrB[bIndex];
 
 		if (aItem === undefined) {
-			mergedArr.push(...arrB);
+			mergedArr.push(...arrB.slice(bIndex));
 			break;
 		} else if (bItem === undefined) {
-			mergedArr.push(...arrA);
+			mergedArr.push(...arrA.slice(aIndex));
 			break;
 		} else if (aItem < bItem) {
 			mergedArr.push(aItem);
-			arrA.splice(0, 1);
+			aIndex++;
 		} else {
 			mergedArr.push(bItem);
-			arrB.splice(0, 1);
+			bIndex++;
 		}
 	}
 	return mergedArr;
